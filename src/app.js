@@ -1,21 +1,24 @@
 const express = require('express');
 const app=express();
 
-//this will handle anythin comes after /,/abc/nko,/hello 
-// /anything 
-// app.use("/",(req,res)=>{
-//     res.send("first for /");
-// })
 
+app.get("/user",(req,res)=>{
+    console.log("get user api")
+    res.send({"name":"vedamt","age":22});
+})
 
-//this will hanlde naything comes after /hello,/hello/123
-// /hello/anything 
-app.use("/hello",(req,res)=>{
-    res.send("second for /hello");
+app.post("/user",(req,res)=>{
+    console.log("post user api");
+    res.send("user saved to db");
+})
+
+app.delete("/user",(req,res)=>{
+    console.log("del user api");
+    res.send("user deleted from db");
 })
 
 //this will handle anything comes after /test,/test/123
-// /test/anything
+// /test/anything  
 app.use("/test",(req,res)=>{
     res.send("third test");
 })

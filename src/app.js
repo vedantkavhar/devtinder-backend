@@ -2,28 +2,36 @@ const express = require('express');
 const app=express();
 
 
-app.get("/user",(req,res)=>{
-    console.log("get user api")
+//? optional b
+app.get(/^\/ab?c$/,(req,res)=>{
+    console.log("get user api");
+    res.send({"name":"vedamt","age":22});
+})
+// + muliple of b
+// /abbbbbc
+app.get(/^\/ab+c$/,(req,res)=>{
+    console.log("get user api");
     res.send({"name":"vedamt","age":22});
 })
 
-app.post("/user",(req,res)=>{
-    console.log("post user api");
-    res.send("user saved to db");
+// * for anything 
+// abxyxzc
+app.get(/^\/ab.*c$/,(req,res)=>{
+    console.log("get user api");
+    res.send({"name":"vedamt","age":22});
 })
 
-app.delete("/user",(req,res)=>{
-    console.log("del user api");
-    res.send("user deleted from db");
+//antyuing ending with cover
+// /raincover
+app.get(/^\/.*cover$/,(req,res)=>{
+    console.log("get user api");
+    res.send({"name":"vedamt","age":22});
 })
 
-//this will handle anything comes after /test,/test/123
-// /test/anything  
-app.use("/test",(req,res)=>{
-    res.send("third test");
+app.get(/ab?c/,(req,res)=>{
+    console.log("get user api");
+    res.send({"name":"vedamt","age":22});
 })
-
-
 
 
 app.listen(7777,()=>{

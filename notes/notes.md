@@ -6,3 +6,5 @@
 ![alt text](image-2.png)
 - httmp methods
 -![alt text](image-3.png)
+- routing +,?,*
+![alt text](image-4.png)

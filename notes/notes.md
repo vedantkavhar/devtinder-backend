@@ -10,3 +10,5 @@
 ![alt text](image-4.png)
 -![alt text](image-5.png)     4
 - both above works
+- req.query ,req.params
+![alt text](image-6.png)

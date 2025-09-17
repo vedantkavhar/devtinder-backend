@@ -16,7 +16,9 @@ app.get('/user',(req,res)=>{
 // params access
 // http://localhost:7777/user/111111
 // { userId: '111111' }
-app.get('/user/:userId',(req,res)=>{
+// http://localhost:7777/user/111111/ved/123
+// { userId: '111111', name: 'ved', pass: '123' }
+app.get('/user/:userId/:name/:pass',(req,res)=>{
     console.log(req.params);
     res.send("Hello from express");
 }

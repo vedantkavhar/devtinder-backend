@@ -1,14 +1,19 @@
 const express = require('express');
 const app=express();
 
-// rh1 
-// app.get('/',(req,res)=>{
-//     res.send("Hello World");
-// })
+//middleare 
+// handlers till actual resp req hanlder are middleware 
+app.use("/",(req,res,next)=>{
+    next();                              //    middleware                                          
+})
 
-// both works same 
-app.get('/user',[ rh1,rh2,rh3,rh4 ]) 
-app.get('/user', rh1,[rh2,rh3],rh4 ) 
+app.get('/user',(req,res,next)=>{
+    console.log("user route");          //middleware
+    next();
+},(req,res)=>{
+    res.send("hanlder 2");            //actual response req, handler
+});
+
 
 app.listen(7777,()=>{
     console.log("Server is running on port 7777");

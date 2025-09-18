@@ -13,9 +13,11 @@
 - req.query ,req.params
 ![alt text](image-6.png)
 
-- e5 middlwares error handlers
+- e5 middlwares error handlers onnlu img rem in onenote
 -   playing with route hanlers ,next () fun for moving to next rl
 - ![alt text](image-9.png)
 - ![alt text](image-8.png)
 -![alt text](image-10.png)
 - wrap in array also same work ![alt text](image-11.png)![alt text](image-12.png)
+- same work ,diff syntax![alt text](image-13.png)
+- midllware ![alt text](image-14.png)

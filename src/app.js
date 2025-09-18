@@ -1,18 +1,26 @@
 const express = require('express');
 const app=express();
 
-// import middleeare 
-const {AuthAdmin}=require("./middlware/auth");
+// error jandling
+// way 1 try cath
+app.get("/",(req,res)=>{
+    console.log("In the root route");
+    // try{
+    //     throw new Error("Some error occured");
+    //     res.send("Hello World");
 
-//middleare 
-// work for admin/ all route
-//way1  
-app.use("/admin",AuthAdmin);
-//way 2 inside route
-app.get("/admin/dashboard",AuthAdmin,(req,res)=>{
-    res.send("Admin Dashboard");
-})
+    // }catch{
+    //     res.status(500).send("Internal server error");
+    // }
+});
 
+// way 2  err in req 
+app.get("/user",(err,req,res,next)=>{
+    if(err){
+        res.status(500).send(" error");
+    }
+}
+);
 
 app.listen(7777,()=>{
     console.log("Server is running on port 7777");

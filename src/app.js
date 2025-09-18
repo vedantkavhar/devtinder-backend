@@ -1,18 +1,17 @@
 const express = require('express');
 const app=express();
 
-//middleare 
-// handlers till actual resp req hanlder are middleware 
-app.use("/",(req,res,next)=>{
-    next();                              //    middleware                                          
-})
+// import middleeare 
+const {AuthAdmin}=require("./middlware/auth");
 
-app.get('/user',(req,res,next)=>{
-    console.log("user route");          //middleware
-    next();
-},(req,res)=>{
-    res.send("hanlder 2");            //actual response req, handler
-});
+//middleare 
+// work for admin/ all route
+//way1  
+app.use("/admin",AuthAdmin);
+//way 2 inside route
+app.get("/admin/dashboard",AuthAdmin,(req,res)=>{
+    res.send("Admin Dashboard");
+})
 
 
 app.listen(7777,()=>{

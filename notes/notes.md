@@ -12,3 +12,8 @@
 - both above works
 - req.query ,req.params
 ![alt text](image-6.png)
+
+- e5 middlwares error handlers
+-   playing with route hanlers ,next () fun for moving to next rl
+- ![alt text](image-9.png)
+- ![alt text](image-8.png)

@@ -28,4 +28,8 @@
 - e6 connecting to db ,mongodb,cluster,schema,model,collection
 - perfect connection ![alt text](image-18.png)![alt text](image-19.png)
 - model and schema ![alt text](image-20.png)
-- saving hard coded manually data to users colletion/model inside db ![alt text](image-21.png)
+- saving hard coded manually data to users colletion/model inside db ![alt text](image-21.png) 
+
+- e7 apis detail
+- psotman req.body ,express.json midlleware ,savinf to db ![alt text](image-22.png)
+- 

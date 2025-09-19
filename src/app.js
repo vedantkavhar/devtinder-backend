@@ -4,6 +4,8 @@ const connectDB=require('./config/database');  // db connect krne k liye
 
 const User =require("./models/user"); //impporting model user
 
+app.use(express.json()); //middleware to parse json data from req body // convert json to js obj⭐ else req.body will be undefined
+
 app.post("/signup",async(req,res)=>{
     //way1
     // const data = {
@@ -17,13 +19,24 @@ app.post("/signup",async(req,res)=>{
     // const user = new User(data);
 
     //way 2
+    // console.log("signup route hitted");
+    // const user = new User({          //this is js obj
+    //     firstName:"ved",
+    //     lastName:"kavhar",
+    //     emailId:"vedant@gmail.com",
+    //     password:"veda@123",
+    // });
+
+    // {                                             === req.body
+    //     firstName:"ved",
+    //     lastName:"kavhar",
+    //     emailId:"vedant@gmail.com",
+    //     password:"veda@123",
+    // }
+    //way 3 modern
     console.log("signup route hitted");
-    const user = new User({
-        firstName:"ved",
-        lastName:"kavhar",
-        emailId:"vedant@gmail.com",
-        password:"veda@123",
-    });
+    console.log(req.body);
+    const user = new User(req.body);  // assuming req.body has the user data from postman req body
 
     try{
         await user.save();

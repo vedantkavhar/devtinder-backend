@@ -48,7 +48,47 @@ app.post("/signup",async(req,res)=>{
 
 });
 
+// ⭐db operations are perfromed on model User.find,model.find  
 
+//get user by email id
+// left side must be same as schema /field name in db 
+// right side is incoming from req body /client/fe
+// returns arr of all matching entries with that incoming email id so chekc arr length empty or not
+app.get("/user",async(req,res)=>{
+    console.log(req.body.emailId);
+    const userEmail = req.body.emailId;
+
+    try{
+        const user= await User.findOne({emailId:userEmail}); // return single matching enty ,if duplicate entries then first match return krta hai
+        if(!user){
+            return res.status(404).send("No user found with this email id");
+        }
+        res.send(user);  // single obj
+       
+    //    // alternative    way return arr of all matching entries with that incoming email
+
+    //    const users= await User.find({emailId: userEmail}); //retrun arr of all matchin entries with that incoming email
+    //    if(users.length===0){
+    //     return res.status(404).send("No user found with this email id");
+    //    }
+    //    else{
+    //        res.send(users);  
+    //     }
+    }
+    catch(err){
+        res.status(400).send("error in fetching user by email id"+ err.message);
+    }
+})
+
+app.get("/feed",async(req,res)=>{
+    console.log("feed route hitted");
+    try{
+       const users=  await User.find({});
+       res.send(users);
+    }catch(err){
+        res.status(400).send("error in fetching all users"+ err.message);
+    }
+})
 
 connectDB()              // fn returns promise return krta hai
 .then(()=>{                                     

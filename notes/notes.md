@@ -32,4 +32,7 @@
 
 - e7 apis detail
 - psotman req.body ,express.json midlleware ,savinf to db ![alt text](image-22.png)
-- 
+- getinng user by email id ,user.find({eamil}) ![alt text](image-23.png)
+- getting all users ,feed api,user.find({}) ![alt text](image-24.png)
+- if dup email id ,get only one using user.findOne({email}) ![alt text](image-25.png)
+

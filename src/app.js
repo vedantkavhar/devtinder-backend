@@ -1,27 +1,17 @@
 const express = require('express');
 const app=express();
 
-// error jandling
-// way 1 try cath
-app.get("/",(req,res)=>{
-    console.log("In the root route");
-    // try{
-    //     throw new Error("Some error occured");
-    //     res.send("Hello World");
 
-    // }catch{
-    //     res.status(500).send("Internal server error");
-    // }
+const connectDB=require('./config/database');  // db connect krne k liye
+
+connectDB()              // fn returns promise return krta hai
+.then(()=>{                                     
+    console.log("Connected to db, now listen to server");
+    app.listen(7777,()=>{
+    console.log("Server is running on port 7777");
+    });
+})
+.catch((err)=>{
+    console.log("Error in connecting to db",err);
 });
 
-// way 2  err in req 
-app.get("/user",(err,req,res,next)=>{
-    if(err){
-        res.status(500).send(" error");
-    }
-}
-);
-
-app.listen(7777,()=>{
-    console.log("Server is running on port 7777");
-})

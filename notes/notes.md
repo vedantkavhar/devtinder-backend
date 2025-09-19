@@ -23,3 +23,7 @@
 - midllware ![alt text](image-14.png)![alt text](image-15.png)
 - ![alt text](image-16.png)![alt text](image-17.png)
 - error handling
+
+
+- e6 connecting to db ,mongodb,cluster,schema,model,collection
+- perfect connection ![alt text](image-18.png)![alt text](image-19.png)

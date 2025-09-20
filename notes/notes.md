@@ -31,8 +31,11 @@
 - saving hard coded manually data to users colletion/model inside db ![alt text](image-21.png) 
 
 - e7 apis detail
+- post api
 - psotman req.body ,express.json midlleware ,savinf to db ![alt text](image-22.png)
+- get api
 - getinng user by email id ,user.find({eamil}) ![alt text](image-23.png)
 - getting all users ,feed api,user.find({}) ![alt text](image-24.png)
 - if dup email id ,get only one using user.findOne({email}) ![alt text](image-25.png)
-
+- delete api ![alt text](image-26.png) , 
+- update api  ![alt text](image-27.png) its ooptions before,after![alt text](image-28.png) ![alt text](image-29.png)

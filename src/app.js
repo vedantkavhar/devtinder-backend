@@ -80,6 +80,7 @@ app.get("/user",async(req,res)=>{
     }
 })
 
+//get feed api 
 app.get("/feed",async(req,res)=>{
     console.log("feed route hitted");
     try{
@@ -89,6 +90,39 @@ app.get("/feed",async(req,res)=>{
         res.status(400).send("error in fetching all users"+ err.message);
     }
 })
+
+//delete user by id
+// left side must be same as schema /field name in db here_id
+// right side is incoming from req body /client/fe
+app.delete("/user",async(req,res)=>{
+    console.log(req.body.userId);
+    const userIdreq=req.body.userId;
+    try{
+        // await User.findByIdAndDelete({_id:userIdreq });    //or
+        await User.findByIdAndDelete(userIdreq);        //both works same
+        res.send("user deleted successfully");
+    }
+    catch(err){
+        res.status(400).send("error in deleting user by id"+ err.message);
+    }
+});
+
+
+app.patch("/user",async(req,res)=>{
+    console.log(req.body.userId);
+    const userIdreq=req.body.userId;        
+    const data=req.body;               //new data to update
+    try{
+        // await User.findByIdAndUpdate({_id:userIdreq},data );   //both works same  ,by def is before
+        const user =await User.findByIdAndUpdate(userIdreq,data,{
+            returnDocument:"after"   // return updated doc for after ,by def is before
+        } );                                                        
+        console.log(user);
+        res.send("user updated successfully");
+    }catch(err){
+        res.status(400).send("error in updating user by id"+ err.message);
+    }
+});
 
 connectDB()              // fn returns promise return krta hai
 .then(()=>{                                     

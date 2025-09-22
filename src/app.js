@@ -115,7 +115,8 @@ app.patch("/user",async(req,res)=>{
     try{
         // await User.findByIdAndUpdate({_id:userIdreq},data );   //both works same  ,by def is before
         const user =await User.findByIdAndUpdate(userIdreq,data,{
-            returnDocument:"after"   // return updated doc for after ,by def is before
+            returnDocument:"after",   // return updated doc for after ,by def is before
+            runValidators:true,       // to run validators while updating also by def it only validation work on creating new user,but to make it run on update also use runValidators:true
         } );                                                        
         console.log(user);
         res.send("user updated successfully");

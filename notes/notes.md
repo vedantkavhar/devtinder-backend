@@ -39,3 +39,8 @@
 - if dup email id ,get only one using user.findOne({email}) ![alt text](image-25.png)
 - delete api ![alt text](image-26.png) , 
 - update api  ![alt text](image-27.png) its ooptions before,after![alt text](image-28.png) ![alt text](image-29.png)
+
+- e8 data sanitization
+- schema checks ![alt text](image-30.png)![alt text](image-31.png)
+- runvalidators true ![alt text](image-32.png)
+- required,unique,lowercase,trim,default,min,minLength,custom validations,runvalidators,timestamps

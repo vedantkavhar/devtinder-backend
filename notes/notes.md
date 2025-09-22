@@ -49,3 +49,7 @@
 - allowing only particular thing to update ![alt text](image-33.png)
 - getting userid form req, allowing max 10 skils only ![alt text](image-34.png)
 - validator ![alt text](image-35.png)
+
+- e9 encrypting passwords
+- validate password ![alt text](image-37.png)
+- encrypt pass by hashing them then hashed pass save to db ![alt text](image-36.png)

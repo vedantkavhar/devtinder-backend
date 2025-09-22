@@ -1,12 +1,16 @@
 const express = require('express');
-const app=express();
-const connectDB=require('./config/database');  // db connect krne k liye
+const app = express();
+const connectDB = require('./config/database');  // db connect krne k liye
 
-const User =require("./models/user"); //impporting model user
+const User = require("./models/user"); //impporting model user
+
+const { validateSignUpData } = require("./utils/validation");
+const bcyrpt = require("bcrypt");
+
 
 app.use(express.json()); //middleware to parse json data from req body // convert json to js obj⭐ else req.body will be undefined
 
-app.post("/signup",async(req,res)=>{
+app.post("/signup", async (req, res) => {
     //way1
     // const data = {
     //     firstName:"ved",
@@ -36,14 +40,29 @@ app.post("/signup",async(req,res)=>{
     //way 3 modern
     console.log("signup route hitted");
     console.log(req.body);
-    const user = new User(req.body);  // assuming req.body has the user data from postman req body
+    const { firstName, lastName, emailId, password } = req.body; //destructuring of incoming data
 
-    try{
+
+
+    try {
+        //1validations on incoming data
+        validateSignUpData(req);
+
+        //2hasing password usign bcrypt
+        const passwordHash = await bcyrpt.hash(password, 10);  //10 is salt rounds
+        //3saving hashed pass
+        const user = new User({
+            firstName,
+            lastName,
+            emailId,
+            password: passwordHash,
+        })
+
         await user.save();
         console.log("user saved to db");
         res.send("user saved succesfully to db");
-    }catch(err){
-        res.status(400).send("error savinfg info to db :: " +err.message);
+    } catch (err) {
+        res.status(400).send("error savinfg info to db :: " + err.message);
     }
 
 });
@@ -54,102 +73,102 @@ app.post("/signup",async(req,res)=>{
 // left side must be same as schema /field name in db 
 // right side is incoming from req body /client/fe
 // returns arr of all matching entries with that incoming email id so chekc arr length empty or not
-app.get("/user",async(req,res)=>{
+app.get("/user", async (req, res) => {
     console.log(req.body.emailId);
     const userEmail = req.body.emailId;
 
-    try{
-        const user= await User.findOne({emailId:userEmail}); // return single matching enty ,if duplicate entries then first match return krta hai
-        if(!user){
+    try {
+        const user = await User.findOne({ emailId: userEmail }); // return single matching enty ,if duplicate entries then first match return krta hai
+        if (!user) {
             return res.status(404).send("No user found with this email id");
         }
         res.send(user);  // single obj
-       
-    //    // alternative    way return arr of all matching entries with that incoming email
 
-    //    const users= await User.find({emailId: userEmail}); //retrun arr of all matchin entries with that incoming email
-    //    if(users.length===0){
-    //     return res.status(404).send("No user found with this email id");
-    //    }
-    //    else{
-    //        res.send(users);  
-    //     }
+        //    // alternative    way return arr of all matching entries with that incoming email
+
+        //    const users= await User.find({emailId: userEmail}); //retrun arr of all matchin entries with that incoming email
+        //    if(users.length===0){
+        //     return res.status(404).send("No user found with this email id");
+        //    }
+        //    else{
+        //        res.send(users);  
+        //     }
     }
-    catch(err){
-        res.status(400).send("error in fetching user by email id"+ err.message);
+    catch (err) {
+        res.status(400).send("error in fetching user by email id" + err.message);
     }
 })
 
 //get feed api 
-app.get("/feed",async(req,res)=>{
+app.get("/feed", async (req, res) => {
     console.log("feed route hitted");
-    try{
-       const users=  await User.find({});
-       res.send(users);
-    }catch(err){
-        res.status(400).send("error in fetching all users"+ err.message);
+    try {
+        const users = await User.find({});
+        res.send(users);
+    } catch (err) {
+        res.status(400).send("error in fetching all users" + err.message);
     }
 })
 
 //delete user by id
 // left side must be same as schema /field name in db here_id
 // right side is incoming from req body /client/fe
-app.delete("/user",async(req,res)=>{
+app.delete("/user", async (req, res) => {
     console.log(req.body.userId);
-    const userIdreq=req.body.userId;
-    try{
+    const userIdreq = req.body.userId;
+    try {
         // await User.findByIdAndDelete({_id:userIdreq });    //or
         await User.findByIdAndDelete(userIdreq);        //both works same
         res.send("user deleted successfully");
     }
-    catch(err){
-        res.status(400).send("error in deleting user by id"+ err.message);
+    catch (err) {
+        res.status(400).send("error in deleting user by id" + err.message);
     }
 });
 
 
-app.patch("/user/:userId",async(req,res)=>{
+app.patch("/user/:userId", async (req, res) => {
     console.log(req.params?.userId);
-    const userIdreq=req.params?.userId;        
-    const data=req.body;               //new data to update
-    try{
-        const ALLOWED_UPDATES=[
+    const userIdreq = req.params?.userId;
+    const data = req.body;               //new data to update
+    try {
+        const ALLOWED_UPDATES = [
             "photoUrl",
             "about",
             "gender",
             "age",
             "skills",
         ];
-        const isUpdateAllowed= Object.keys(data).every((key)=>
+        const isUpdateAllowed = Object.keys(data).every((key) =>
             ALLOWED_UPDATES.includes(key)
         );
-        if(!isUpdateAllowed){
-            return res.status(400).send("invalid updates , you can only update "+ ALLOWED_UPDATES);
+        if (!isUpdateAllowed) {
+            return res.status(400).send("invalid updates , you can only update " + ALLOWED_UPDATES);
         }
-        if(data?.skills.length >10 ){
+        if (data?.skills.length > 10) {
             return res.status(400).send("you can add max 10 skills");
         }
 
         // await User.findByIdAndUpdate({_id:userIdreq},data );   //both works same  ,by def is before
-        const user =await User.findByIdAndUpdate(userIdreq,data,{
-            returnDocument:"after",   // return updated doc for after ,by def is before
-            runValidators:true,       // to run validators while updating also by def it only validation work on creating new user,but to make it run on update also use runValidators:true
-        } );                                                        
+        const user = await User.findByIdAndUpdate(userIdreq, data, {
+            returnDocument: "after",   // return updated doc for after ,by def is before
+            runValidators: true,       // to run validators while updating also by def it only validation work on creating new user,but to make it run on update also use runValidators:true
+        });
         console.log(user);
         res.send("user updated successfully");
-    }catch(err){
-        res.status(400).send("error in updating user by id"+ err.message);
+    } catch (err) {
+        res.status(400).send("error in updating user by id" + err.message);
     }
 });
 
 connectDB()              // fn returns promise return krta hai
-.then(()=>{                                     
-    console.log("Connected to db, now listen to server");
-    app.listen(7777,()=>{
-    console.log("Server is running on port 7777");
+    .then(() => {
+        console.log("Connected to db, now listen to server");
+        app.listen(7777, () => {
+            console.log("Server is running on port 7777");
+        });
+    })
+    .catch((err) => {
+        console.log("Error in connecting to db", err);
     });
-})
-.catch((err)=>{
-    console.log("Error in connecting to db",err);
-});
 

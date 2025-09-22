@@ -41,6 +41,10 @@
 - update api  ![alt text](image-27.png) its ooptions before,after![alt text](image-28.png) ![alt text](image-29.png)
 
 - e8 data sanitization
+- part1: schema level checks in schema file
 - schema checks ![alt text](image-30.png)![alt text](image-31.png)
 - runvalidators true ![alt text](image-32.png)
 - required,unique,lowercase,trim,default,min,minLength,custom validations,runvalidators,timestamps
+- part 2: api level checks
+- allowing only particular thing to update ![alt text](image-33.png)
+- getting userid form req, allowing max 10 skils only ![alt text](image-34.png)

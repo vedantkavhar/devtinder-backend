@@ -108,11 +108,28 @@ app.delete("/user",async(req,res)=>{
 });
 
 
-app.patch("/user",async(req,res)=>{
-    console.log(req.body.userId);
-    const userIdreq=req.body.userId;        
+app.patch("/user/:userId",async(req,res)=>{
+    console.log(req.params?.userId);
+    const userIdreq=req.params?.userId;        
     const data=req.body;               //new data to update
     try{
+        const ALLOWED_UPDATES=[
+            "photoUrl",
+            "about",
+            "gender",
+            "age",
+            "skills",
+        ];
+        const isUpdateAllowed= Object.keys(data).every((key)=>
+            ALLOWED_UPDATES.includes(key)
+        );
+        if(!isUpdateAllowed){
+            return res.status(400).send("invalid updates , you can only update "+ ALLOWED_UPDATES);
+        }
+        if(data?.skills.length >10 ){
+            return res.status(400).send("you can add max 10 skills");
+        }
+
         // await User.findByIdAndUpdate({_id:userIdreq},data );   //both works same  ,by def is before
         const user =await User.findByIdAndUpdate(userIdreq,data,{
             returnDocument:"after",   // return updated doc for after ,by def is before

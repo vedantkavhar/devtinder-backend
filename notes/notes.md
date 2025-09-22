@@ -48,3 +48,4 @@
 - part 2: api level checks
 - allowing only particular thing to update ![alt text](image-33.png)
 - getting userid form req, allowing max 10 skils only ![alt text](image-34.png)
+- validator ![alt text](image-35.png)

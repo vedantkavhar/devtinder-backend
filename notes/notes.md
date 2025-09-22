@@ -53,3 +53,4 @@
 - e9 encrypting passwords
 - validate password ![alt text](image-37.png)
 - encrypt pass by hashing them then hashed pass save to db ![alt text](image-36.png)
+- login route ![alt text](image-38.png)

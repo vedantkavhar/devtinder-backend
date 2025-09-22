@@ -7,7 +7,6 @@ const User = require("./models/user"); //impporting model user
 const { validateSignUpData } = require("./utils/validation");
 const bcyrpt = require("bcrypt");
 
-
 app.use(express.json()); //middleware to parse json data from req body // convert json to js obj⭐ else req.body will be undefined
 
 app.post("/signup", async (req, res) => {
@@ -66,6 +65,30 @@ app.post("/signup", async (req, res) => {
     }
 
 });
+
+
+app.post("/login", async (req, res) => {
+    const { emailId, password } = req.body;
+
+    try {
+        //1.find user by email id
+        const user = await User.findOne({ emailId: emailId });
+        if (!user) {
+            return res.status(404).send("Invalid credentials");
+        }
+        //2.compare incoming password with hashed password in db
+        const isPasswordMatch = await bcyrpt.compare(password, user.password);
+        if (!isPasswordMatch) {
+            return res.status(401).send("Incorrect password");
+        } else {
+            res.send("login successful");
+        }
+    }    catch (err) {
+        return res.status(400).send("error in login" + err.message);
+    }   
+}
+
+)
 
 // ⭐db operations are perfromed on model User.find,model.find  
 

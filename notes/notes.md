@@ -63,3 +63,8 @@
 - usser auth use in /profile route ![alt text](image-43.png)
 - /sendConnectionRequest user auth and expires ![alt text](image-45.png)
 - refactotring code moving logic of jwt generation and pass compare in userschema ![alt text](image-47.png) ![alt text](image-46.png)
+
+- e11 diving into api,expreses router
+- apilist ![alt text](image-48.png)
+- moving routes from app.js to router ![](image-49.png) ![alt text](image-50.png) ![alt text](image-51.png)
+- using it itn app.js ![alt text](image-52.png)

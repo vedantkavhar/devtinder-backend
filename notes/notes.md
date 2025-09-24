@@ -54,3 +54,8 @@
 - validate password ![alt text](image-37.png)
 - encrypt pass by hashing them then hashed pass save to db ![alt text](image-36.png)
 - login route ![alt text](image-38.png)
+
+- e10 authenctication ,jwt,cookies
+- stroing jwt inside cookies and retrurning back to client ![alt text](image-39.png)![alt text](image-40.png)
+- /login final creating ,storing jwt in cookies ![alt text](image-41.png)
+- validating upcoming jwt from cookies and sending bajc user info ![alt text](image-42.png)

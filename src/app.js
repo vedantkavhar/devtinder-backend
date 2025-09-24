@@ -7,7 +7,12 @@ const User = require("./models/user"); //impporting model user
 const { validateSignUpData } = require("./utils/validation");
 const bcyrpt = require("bcrypt");
 
+const cookieParser = require('cookie-parser');
+const jwt = require("jsonwebtoken")
+
 app.use(express.json()); //middleware to parse json data from req body // convert json to js obj⭐ else req.body will be undefined
+app.use(cookieParser()); // to parse cookie from req header ,to be able to read cookies
+
 
 app.post("/signup", async (req, res) => {
     //way1
@@ -69,6 +74,7 @@ app.post("/signup", async (req, res) => {
 
 app.post("/login", async (req, res) => {
     const { emailId, password } = req.body;
+    
 
     try {
         //1.find user by email id
@@ -81,14 +87,46 @@ app.post("/login", async (req, res) => {
         if (!isPasswordMatch) {
             return res.status(401).send("Incorrect password");
         } else {
+
+            //token generation using jwt encoding _id in it ⭐
+            const token= await jwt.sign({_id:user._id},"MydevtindersecretJwtKey");
+            console.log(token);
+
+            res.cookie("token",token); //name,value//putiing token inside cookew,sending cookee backt to client/user/browser
             res.send("login successful");
         }
     }    catch (err) {
         return res.status(400).send("error in login" + err.message);
     }   
-}
+})
 
-)
+//to access profile route verify token ,if user exist then only give info
+app.get("/profile", async(req, res) => {
+    try{
+        const cookies = req.cookies;
+        console.log("all cookies",cookies);
+        
+        const {token}=cookies ;
+        if(!token){
+            throw new Error("invalid token");
+        } 
+
+        const decodedMessage= await jwt.verify(token,"MydevtindersecretJwtKey"); // contains id
+        console.log("decoded msg"+decodedMessage); 
+
+        const {_id}= decodedMessage;                  //extracting id from token
+        console.log("logged in user is wwtih id: "+_id);
+
+        const user= await User.findById(_id);            // find user with that id in db
+        if(!user){
+            throw new Error("user does not exist")
+        }
+        res.send(user); //token is valdiated ,returning user data
+    } catch(err){
+        res.status(400).message("error"+err.message);
+    }
+})
+
 
 // ⭐db operations are perfromed on model User.find,model.find  
 

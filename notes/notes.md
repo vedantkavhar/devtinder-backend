@@ -59,3 +59,6 @@
 - stroing jwt inside cookies and retrurning back to client ![alt text](image-39.png)![alt text](image-40.png)
 - /login final creating ,storing jwt in cookies ![alt text](image-41.png)
 - validating upcoming jwt from cookies and sending bajc user info ![alt text](image-42.png)
+- user atub midellware ![alt text](image-44.png)
+- usser auth use in /profile route ![alt text](image-43.png)
+- /sendConnectionRequest user auth and expires ![alt text](image-45.png)

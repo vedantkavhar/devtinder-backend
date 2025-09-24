@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
 const validator= require('validator');
+
+const jwt= require("jsonwebtoken");
+const bcrypt=require("bcrypt");
+
 const userSchema= new mongoose.Schema({
     firstName:{
         type:String,
@@ -61,7 +65,26 @@ const userSchema= new mongoose.Schema({
     }
 },{
     timestamps:true,  //createdAt and updatedAt
-})
+});
+
+userSchema.methods.getJWT= async function(){
+    const user= this ;//if ved is login then this will point to ved user details/document
+
+    const token = await jwt.sign({_id:user._id},"MydevtindersecretJwtKey",{
+        expiresIn:"7d",
+    });
+
+    return token;
+};
+
+userSchema.methods.validatePassword = async function (passwordInputByUser){
+    const user = this ; //point to curr user doc in db
+    const passwordHash= user.password; //user hash pass
+
+    const isPasswordValid= await bcrypt.compare(passwordInputByUser, passwordHash);// cehck incoming pass,and db pass
+
+    return isPasswordValid;
+}
 
 // User is model name,must be capitalized
 module.exports=mongoose.model("User",userSchema);  // User model create krke export kr rhe hai to use in app.js

@@ -85,15 +85,13 @@ app.post("/login", async(req, res) => {
             return res.status(404).send("Invalid credentials");
         }
         //2.compare incoming password with hashed password in db
-        const isPasswordMatch = await bcyrpt.compare(password, user.password);
+        const isPasswordMatch =await user.validatePassword(password);//logic in userschema
         if (!isPasswordMatch) {
             return res.status(401).send("Incorrect password");
         } else {
 
             //token generation using jwt encoding _id in it ⭐
-            const token= await jwt.sign({_id:user._id},"MydevtindersecretJwtKey",{
-                expiresIn:"7d",
-            });
+            const token= await user.getJWT();            //logic in userschema
             console.log(token);
 
             res.cookie("token",token,{

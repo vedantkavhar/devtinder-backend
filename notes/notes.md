@@ -62,3 +62,4 @@
 - user atub midellware ![alt text](image-44.png)
 - usser auth use in /profile route ![alt text](image-43.png)
 - /sendConnectionRequest user auth and expires ![alt text](image-45.png)
+- refactotring code moving logic of jwt generation and pass compare in userschema ![alt text](image-47.png) ![alt text](image-46.png)

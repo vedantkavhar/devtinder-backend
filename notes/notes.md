@@ -59,12 +59,18 @@
 - stroing jwt inside cookies and retrurning back to client ![alt text](image-39.png)![alt text](image-40.png)
 - /login final creating ,storing jwt in cookies ![alt text](image-41.png)
 - validating upcoming jwt from cookies and sending bajc user info ![alt text](image-42.png)
-- user atub midellware ![alt text](image-44.png)
+- user auth midellware ![alt text](image-44.png)
 - usser auth use in /profile route ![alt text](image-43.png)
 - /sendConnectionRequest user auth and expires ![alt text](image-45.png)
+- difficul
 - refactotring code moving logic of jwt generation and pass compare in userschema ![alt text](image-47.png) ![alt text](image-46.png)
+
 
 - e11 diving into api,expreses router
 - apilist ![alt text](image-48.png)
 - moving routes from app.js to router ![](image-49.png) ![alt text](image-50.png) ![alt text](image-51.png)
 - using it itn app.js ![alt text](image-52.png)
+- logout api
+- difficul
+- profile/view,profile/edit api ,validateedit fields valdiation fn ![alt text](image-53.png) ![alt text](image-54.png)
+- 

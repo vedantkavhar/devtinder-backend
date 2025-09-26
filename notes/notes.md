@@ -74,3 +74,9 @@
 - difficul
 - profile/view,profile/edit api ,validateedit fields valdiation fn ![alt text](image-53.png) ![alt text](image-54.png)
 - 
+
+- e12 logical db query and compound indexes
+- gender schema update ![alt text](image-57.png)
+- connection request schema ![alt text](image-58.png)
+- send request route api /request/send/:Status/:userID ![alt text](image-56.png)
+- compound indexing ![alt text](image-59.png) 

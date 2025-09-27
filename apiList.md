@@ -20,8 +20,8 @@
 - post /reqquest/send/review/:status/:requestId    ✅ //e13
 
 ## userRouter
+- get /user/requests/received 
 - get /user/connections
-- get /user/requests
 - get /user/feed          #get all profiles feed
 
 

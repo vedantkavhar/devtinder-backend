@@ -83,4 +83,5 @@
 
 - e13 ref,populate
 - post /request/review/:status/:requestId ![alt text](image-55.png)
-- get /user/requests
+- get /user/requests/received using ref populate ![alt text](image-61.png)![alt text](image-62.png)
+- ref creates relation betw 2 db

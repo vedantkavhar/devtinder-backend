@@ -86,3 +86,6 @@
 - get /user/requests/received using ref populate ![alt text](image-61.png)![alt text](image-62.png)
 - ref creates relation betw 2 db
 - get /user/connections ![alt text](image-64.png)
+
+- e14 feed api and pagination
+- /feed api ,select ,$or,$and,set ,exclusion ![alt text](image-60.png) 

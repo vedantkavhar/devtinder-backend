@@ -22,7 +22,13 @@
 ## userRouter
 - get /user/requests/received 
 - get /user/connections
-- get /user/feed          #get all profiles feed
+- get /feed                    #get all new profiles feed
 
+# pagination
+/feed?page=1&limit=10           => 1 to 10
+/feed?page=2&limit=10           => 11 to 20
+
+/feed
+use req.query.page
 
 status: interested,ignored,accepted,rejected

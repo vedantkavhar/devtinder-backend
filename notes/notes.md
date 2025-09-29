@@ -89,3 +89,4 @@
 
 - e14 feed api and pagination
 - /feed api ,select ,$or,$and,set ,exclusion ![alt text](image-60.png) 
+- /feed api with pagination usign skip(),limit() fn ![alt text](image-63.png)

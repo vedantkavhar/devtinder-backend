@@ -10,7 +10,7 @@ const userAuth= async (req, res, next) => {
         // reqd tokne from cookeis incoming
         const {token}= req.cookies ; //token is inside cookeiw in incoming req
         if(!token){
-            return res.status(401).send("token not present ,user not authenticated");
+            return res.status(401).send("please Login");
         }
         
         //verify token 

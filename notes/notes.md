@@ -90,3 +90,8 @@
 - e14 feed api and pagination
 - /feed api ,select ,$or,$and,set ,exclusion ![alt text](image-60.png) 
 - /feed api with pagination usign skip(),limit() fn ![alt text](image-63.png)
+
+- fe e5 
+- earlier setting cookies for login only
+- now setting cookies for singup also ,so when new user signup token is in cookie  and routes can be accessed ![alt text](image-65.png)
+- so when new user signup ,he dont have to login that time,he automcatically logges in using token gen at time of signup

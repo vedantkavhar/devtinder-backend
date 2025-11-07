@@ -53,9 +53,20 @@ authRouter.post("/signup", async (req, res) => {
             password: passwordHash,
         })
 
-        await user.save();
+        //so when user singup ie new user then token creates,savet to cookie and
+        //  routes can be accessed
+        const savedUser= await user.save();     
+
+        const token= await savedUser.getJWT();            //logic in userschema
+            console.log(token);
+
+            res.cookie("token",token,{
+                expires:new Date(Date.now()+ 8*3600000), //cookie expire time 8hr
+            }); //name,value//putiing token inside cookew,sending cookee backt to client/user/browser
+            
+
         console.log("user saved to db");
-        res.send("user saved succesfully to db");
+        res.json({message:"user saved succesfully to db",savedUser});
     } catch (err) {
         res.status(400).send("error savinfg info to db :: " + err.message);
     }

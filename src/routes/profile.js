@@ -12,7 +12,7 @@ profileRouter.get("/profile/view",userAuth, async(req, res) => {
         const user =req.user;     //user info is attached to req by mdidleware
         res.send(user); //token is valdiated ,returning user data
     } catch(err){
-        res.status(400).message("error"+err.message);
++        res.status(400).json({ error: err.message });
     }
 })
 
@@ -39,7 +39,7 @@ profileRouter.patch("/profile/edit",userAuth,async(req,res)=>{
             data : looggedInUser,            
         })
     }catch(err){
-        res.status(400).message(err.message);
++        res.status(400).json({ error: err.message });
 
     }
 })

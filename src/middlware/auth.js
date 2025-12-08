@@ -1,5 +1,7 @@
 const jwt = require("jsonwebtoken");
-const User=require("../models/user")
+const User=require("../models/user");
+
+
 
 //auth middleware to protect routes ,validate every incoming req if has valid jwt
 const userAuth= async (req, res, next) => {
@@ -14,7 +16,7 @@ const userAuth= async (req, res, next) => {
         }
         
         //verify token 
-        const decodedObj=await jwt.verify(token,"MydevtindersecretJwtKey"); // contains id
+        const decodedObj=await jwt.verify(token,process.env.JWT_SECRET); // contains id
         
         const {_id}=decodedObj;
 

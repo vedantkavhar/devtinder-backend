@@ -9,6 +9,9 @@ const profileRouter = require('./routes/profile');
 const requestRouter= require("./routes/requests");
 const userRouter = require('./routes/user');
 const cors= require("cors");
+require("dotenv").config();
+
+
 
 app.use(cors({
     origin:"http://localhost:5173",
@@ -29,8 +32,8 @@ app.use("/", userRouter);
 connectDB()              // fn returns promise return krta hai
     .then(() => {
         console.log("Connected to db, now listen to server");
-        app.listen(7777, () => {
-            console.log("Server is running on port 7777");
+        app.listen(process.env.PORT, () => {
+            console.log(`Server is running on port ${process.env.PORT}`);
         });
     })
     .catch((err) => {

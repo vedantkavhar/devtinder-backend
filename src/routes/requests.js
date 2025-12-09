@@ -4,6 +4,8 @@ const { userAuth } = require("../middlware/auth");
 const ConnectionRequest = require("../models/connectionRequest"); //conn model
 const User = require("../models/user");
 
+const sendEmail = require("../utils/sendEmail");//for sending emails
+
 //interested/ignored
 //this curr user should able to send req to tohter user
 requestRouter.post("/request/send/:status/:userId", userAuth, async (req, res) => {
@@ -47,8 +49,23 @@ requestRouter.post("/request/send/:status/:userId", userAuth, async (req, res) =
 
         const data = await connectionRequest.save();
 
+
+        //sedngin email
+        // whenever there is conn req ,email sent
+        const emailRes=await sendEmail.run("A new friend request for you on devConnect","You have a new connection request from "+ req.user.firstName +" "+ req.user.lastName+ ". Log in to your account to review the request.");
+        console.log("email sent response:",emailRes);
+
+        // try {
+        //     const emailRes = await sendEmail.run();
+        //     console.log("email sent response:", emailRes);
+        // } catch (emailErr) {
+        //     console.error("SES/sendEmail.run ERROR (non-fatal):", emailErr && emailErr.stack ? emailErr.stack : emailErr);
+        //     // don't rethrow — respond success to client
+        // }  
+
         res.json({
-            message: "connection request sent successfully !",
+            message: 
+            req.user.firstName + "is" + status+" in"+ toUser.firstName,
             data,
         });
     }
@@ -91,7 +108,7 @@ requestRouter.post("/request/review/:status/:requestId", userAuth, async (req, r
 
         //saving updated info the req sent from user 1 to user 2,user 2 marked the req
         const data = await connectionRequest.save();
-        res.json({message:"connection request " + status ,data});
+        res.json({ message: "connection request " + status, data });
     } catch (err) {
         res.status(400).send("Error: " + err.message);
     }

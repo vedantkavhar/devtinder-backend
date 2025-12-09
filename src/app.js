@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const app = express();
 const connectDB = require('./config/database');  // db connect krne k liye
@@ -9,7 +10,6 @@ const profileRouter = require('./routes/profile');
 const requestRouter= require("./routes/requests");
 const userRouter = require('./routes/user');
 const cors= require("cors");
-require("dotenv").config();
 
 
 
